@@ -35,7 +35,9 @@ public class SysCatalogue {
 					
 					//to check if command is valid
 					String lCommand=command.toLowerCase();
-					
+					if(lCommand.equalsIgnoreCase("quit")){
+						break;
+					}
 					if(lCommand.contains("create database")||lCommand.contains("drop database")
 							||lCommand.contains("print catalogue"))
 					{
@@ -43,7 +45,7 @@ public class SysCatalogue {
 						myaction(lCommand);	
 					}
 					else{
-						System.out.println("Invalid input,try one of these: ");
+						System.out.println("Invalid input,try again: ");
 						//for(object obj inn commands){
 						//System.out.println(obj);
 						//}
@@ -92,7 +94,7 @@ class CreateCatalogue{
 		String tabName="sys_"+database;
 		File myfile=new File(tabName +".tab");
 		File myfile2=new File(tabName+".att");
-		System.out.println(myfile.getAbsolutePath());
+		//System.out.println(myfile.getAbsolutePath());
 			try {
 				if(myfile.exists()||myfile2.exists()){
 					System.out.println("Data base with same name already exist");
@@ -144,7 +146,7 @@ class CreateCatalogue{
 			w.write("TName \t sys_"+table+".att \t 16 \t "+ charType +"\t 16\n");
 			w.write("Offset \t sys_"+table+".att \t 32 \t "+ intType +"\t 4\n");
 			w.write("Type \t sys_"+table+".att \t 36 \t "+ intType +"\t 4\n");
-			w.write("Type \t sys_"+table+".att \t 36 \t "+ intType +"\t 4\n");
+			w.write("Type \t sys_"+table+".att \t 40 \t "+ intType +"\t 4\n");
 			
 			w.close();
 		} catch (IOException e) {
@@ -162,10 +164,10 @@ class CreateCatalogue{
 			file2.setWritable(true);
 			
 			    if(file.delete() && file2.delete()){
-			         System.out.println("deleted");
+			         System.out.println("Database dropped sucessfully");
 			    }
 			    else{
-			    	System.out.println("not deleted");
+			    	System.out.println("not droped");
 			    }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -206,13 +208,3 @@ class CreateCatalogue{
 		} 
 	}
 } 
-class table{
-	int noOfAttributes;	
-	public table(int num){
-		noOfAttributes=num;
-		
-	}
-	public void addAttribute(){
-		
-	}
-}
